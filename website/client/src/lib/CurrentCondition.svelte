@@ -1,7 +1,8 @@
 <script lang="ts">
     export let condition:string;
+    export let position:string;
 </script>
-<div class="w-56 h-56 bg-slate-50 border flex flex-col gap-2 items-center justify-center">
+<div class={position+" aspect-square bg-slate-50 border flex flex-col gap-2 items-center justify-center"}>
     <h3 class="sr-only">Current Condition</h3>
     {#if condition === "Sunny" || condition==="Clear" || condition==="Mostly Clear" || condition==="Mostly Sunny"}
     <i class="fa-regular fa-sun fa-6x"></i>
