@@ -1,6 +1,5 @@
 <script lang="ts">
   import Dropdown from "./Dropdown.svelte";
-  import DarkMode from "./DarkMode.svelte";
   import Banner from "./Banner.svelte";
   type Location = {
     city: string;
@@ -19,9 +18,6 @@
     <menu class="flex flex-row items-center justify-end gap-4 col-start-3">
       <li>
         <Dropdown />
-      </li>
-      <li>
-        <DarkMode/>
       </li>
     </menu>
   </div>
