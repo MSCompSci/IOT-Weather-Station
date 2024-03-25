@@ -8,7 +8,7 @@
   import GraphCard from "./lib/GraphCard.svelte";
 </script>
 
-<article class="bg-slate-50 dark:bg-slate-800 w-full min-h-screen ">
+<article class="bg-[url('../static/background.jpg')] bg-cover bg-fixed bg-center w-full min-h-screen ">
   <Header location={{city:"Oswego",state:"NY"}}/>
   <main class="max-w-[1472px] mt-20 gap-8 mx-8 2xl:mx-auto grid grid-cols-1 xl:grid-cols-2 grid-rows-1 ">
     <Card position="row-start-1 col-start-1 col-span-1 row-span-1" title="Current Conditions">
