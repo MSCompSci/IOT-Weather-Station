@@ -14,12 +14,17 @@ const config = {
       white: colors.white,
       emerald: colors.emerald,
       indigo: colors.indigo,
-      yellow: colors.yellow,
+      yellow: colors.Yellow,
       stone: colors.stone,
       sky: colors.sky,
       neutral: colors.neutral,
       gray: colors.gray,
       slate: colors.slate,
+      amber: colors.amber,
+    },
+    fontFamily: {
+      'tomorrow': ['Tomorrow'],
+      'coda': ['Coda']
     },
     extend: {
       colors: {

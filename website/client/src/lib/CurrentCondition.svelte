@@ -2,7 +2,7 @@
     export let condition:string;
     export let position:string;
 </script>
-<div class={position+" aspect-square bg-slate-50 border flex flex-col gap-2 items-center justify-center"}>
+<div class={position+" rounded-lg aspect-square backdrop-blur-sm bg-gradient-to-br from-blue-500/50 to-blue-800/50 border border-blue-900/25 text-slate-50 font-coda flex flex-col gap-2 items-center justify-center"}>
     <h3 class="sr-only">Current Condition</h3>
     {#if condition === "Sunny" || condition==="Clear" || condition==="Mostly Clear" || condition==="Mostly Sunny"}
     <i class="fa-regular fa-sun fa-6x"></i>

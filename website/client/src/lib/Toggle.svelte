@@ -18,13 +18,13 @@
         bind:checked={toggle}
       />
       <div
-        class="bg-slate-400 border-slate-300 shadow dark:bg-black block h-9 w-20 rounded-full border dark:border-slate-900 peer-focus-within:border-black peer-focus-within:border-2 dark:peer-focus-within:border-white"
+        class="backdrop-blur-sm bg-gradient-to-br from-blue-50/20 to-blue-200/15 border border-blue-900/35 shadow  block h-9 w-20 rounded-full  peer-focus-within:border-black peer-focus-within:border-2 "
       ></div>
       <div
         class:translate-x-11={toggle}
-        class:bg-slate-50={!toggle}
-        class:dark:bg-slate-500={!toggle}
-        class={color+" border-slate-200  dark:border-slate-700 preload absolute text-slate-950 dark:text-slate-50 shadow-xl border flex justify-center w-8 h-8 rounded-full left-[2px] top-[2px]  transition"}
+        class:bg-gradient-to-br={!toggle}
+        class:bg-transparent={!toggle}
+        class={color+"  backdrop-blur-sm  from-blue-50/20 to-blue-200/15 border-blue-900/35   preload absolute text-slate-950  shadow-xl border flex justify-center w-8 h-8 rounded-full left-[2px] top-[2px]  transition"}
       >
         <i
           aria-hidden="true"

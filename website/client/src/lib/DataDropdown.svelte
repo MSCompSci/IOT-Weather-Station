@@ -4,7 +4,7 @@
     let data: "Temperature" | "Air Quality" | "Light Level" | "Humidity" | "Air Pressure" = "Temperature";
   </script>
   
-  <Button size="lg"
+  <Button size="lg" class="font-coda bg-gradient-to-b from-blue-700/80 to-blue-900/80 backdrop-blur-sm" color="none"
     ><span class="min-w-20">{data}</span><ChevronDownSolid
       class=" h-3 ms-2 text-white dark:text-white w-3"
     /></Button
