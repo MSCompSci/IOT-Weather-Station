@@ -12,6 +12,7 @@
 
 - [Svelte](https://svelte.dev/)
 - [Flask](https://flask.palletsprojects.com/en/3.0.x/)
+- [gauge.js](https://github.com/bernii/gauge.js/)
 
 ## 💾 Data and APIs
 
