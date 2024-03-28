@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button, Dropdown, DropdownItem, Radio } from "flowbite-svelte";
     import { ChevronDownSolid } from "flowbite-svelte-icons";
-    let data: "Temperature" | "Air Quality" | "Light Level" | "Humidity" | "Air Pressure" = "Temperature";
+    export let data: "Temperature" | "Air Quality" | "Humidity" | "Air Pressure" = "Temperature";
   </script>
   
   <Button size="lg" class="font-coda bg-gradient-to-b from-blue-700/80 to-blue-900/80 backdrop-blur-sm" color="none"
@@ -17,9 +17,6 @@
     <DropdownItem>
       <Radio name="dataselect" bind:group={data} value="Air Quality">Air Quality</Radio>
     </DropdownItem>
-    <DropdownItem>
-        <Radio name="dataselect" bind:group={data} value="Light Level">Light Level</Radio>
-      </DropdownItem>
       <DropdownItem>
         <Radio name="dataselect" bind:group={data} value="Humidity">Humidity</Radio>
       </DropdownItem>

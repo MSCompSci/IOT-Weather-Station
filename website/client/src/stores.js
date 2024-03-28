@@ -1,4 +1,4 @@
-import {readable, writable} from 'svelte/store';
+import {readable, writable, derived} from 'svelte/store';
 
 function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -6,6 +6,22 @@ function randomIntFromInterval(min, max) { // min and max included
 
 // Site settings
 let units = writable("Imperial");
+let tempUnits = derived(units,($units)=>{
+    if($units==="Imperial"){
+        return "°F"
+    }
+    else {
+        return "°C"
+    }
+})
+let airPressureUnits = derived(units,($units)=>{
+    if($units==="Imperial"){
+        return "in-Hg"
+    }
+    else {
+        return "mb"
+    }
+})
 
 // Readings from raspberry pi
 let temp = readable(0,(set)=>{
@@ -100,4 +116,4 @@ let pubAirPressure = readable("25.90",(set)=>{
     }
 })
 
-export {units, temp, airQuality, light, humidity, airPressure, pubTemp, pubLight, pubHumidity, pubAirQuality, pubAirPressure}
+export {units, tempUnits, airPressureUnits, temp, airQuality, light, humidity, airPressure, pubTemp, pubLight, pubHumidity, pubAirQuality, pubAirPressure}
