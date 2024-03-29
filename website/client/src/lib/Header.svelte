@@ -21,5 +21,5 @@
       </li>
     </menu>
   </div>
-  <Banner/>
+  <!-- <Banner/> -->
 </header>
