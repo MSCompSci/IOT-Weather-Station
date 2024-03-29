@@ -6,7 +6,16 @@
   import DataCard from "./lib/DataCard.svelte";
   import DataCompare from "./lib/DataCompare.svelte";
   import GraphCard from "./lib/GraphCard.svelte";
-  import {temp, airQuality, light, humidity, airPressure, tempUnits, airPressureUnits} from './stores'
+  import {piData, piPost, temp, airQuality, light, humidity, airPressure, tempUnits, airPressureUnits} from './stores'
+  import { onMount } from "svelte";
+  onMount(()=>{
+    function logData(){
+      console.log($piData)
+      console.log($piPost)
+      setTimeout(logData, 5000)
+    }
+    logData()
+  })
 </script>
 
 <article class="bg-[url('../static/background.jpg')] bg-cover bg-fixed bg-center w-full min-h-screen ">

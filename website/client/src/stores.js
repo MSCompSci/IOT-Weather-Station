@@ -5,6 +5,8 @@ function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
+
+
 // Site settings
 let units = writable("Imperial");
 let tempUnits = derived(units,($units)=>{
@@ -25,6 +27,32 @@ let airPressureUnits = derived(units,($units)=>{
 })
 
 // Readings from raspberry pi
+const uri = 'http://localhost:5000/api/weather'
+
+const piData = readable({},(set)=>{
+    let incrementCounter = setInterval(()=>{
+        const fetchPiData = async ()=>{
+            try{
+                const response = await fetch(uri,{
+                    cache: "default",
+                    credentials: "omit",
+                    method:"GET",
+                    mode:"cors",
+                });
+                const result = await response.json();
+                set(result)
+            }
+            catch(error){
+
+            }
+        }
+        fetchPiData();
+    }, delay)
+    return ()=>{
+        clearInterval(incrementCounter)
+    }
+})
+
 let temp = readable(0,(set)=>{
     let incrementCounter = setInterval(()=>{
         let newVal = randomIntFromInterval(-100,150)
@@ -134,4 +162,38 @@ let humidityDiff = derived([humidity,pubHumidity],([$humidity,$pubHumidity])=>{
     return humidityDiff
 })
 
-export {units, tempUnits, airPressureUnits, temp, airQuality, light, humidity, airPressure, pubTemp, pubLight, pubHumidity, pubAirQuality, pubAirPressure, tempDiff, airQualityDiff, airPressureDiff, humidityDiff}
+// Test Data
+
+let testData = {
+    "temperature": 35.5,
+    "humidity": 41.2,
+    "aqi": 45,
+    "sunlight_level": 80,
+    "air_pressure": 1015.5
+}
+
+const piPost = readable({},(set)=>{
+    let incrementCounter = setInterval(()=>{
+        async function postPiData(testData) {
+            try {
+                const response = await fetch(uri,{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(testData),
+                    mode: "cors",
+                });
+                const result =  await response.json();
+            } catch (error){
+        
+            }
+        }
+        postPiData(testData);
+    }, delay)
+    return ()=>{
+        clearInterval(incrementCounter)
+    }
+})
+
+export {piData, piPost, units, tempUnits, airPressureUnits, temp, airQuality, light, humidity, airPressure, pubTemp, pubLight, pubHumidity, pubAirQuality, pubAirPressure, tempDiff, airQualityDiff, airPressureDiff, humidityDiff}
