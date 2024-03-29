@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, render_template
+from flask_cors import CORS
 import sqlite3
 
 
 app = Flask(__name__)
+cors = CORS(app, origins=['http://localhost:5173'])
 
 # SQLite Database Initialization
 def get_db_connection():
