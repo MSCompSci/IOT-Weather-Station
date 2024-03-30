@@ -14,7 +14,6 @@
     airPressure,
     tempUnits,
     airPressureUnits,
-    pubAirData
   } from "./stores";
   function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -25,7 +24,7 @@
     let data = {
       temperature: randomIntFromInterval(-100, 150),
       humidity: randomIntFromInterval(0, 100),
-      aqi: randomIntFromInterval(0, 100),
+      aqi: 0,
       sunlight_level: randomIntFromInterval(0, 10),
       air_pressure: randomIntFromInterval(900, 1100),
     };
@@ -39,13 +38,12 @@
           },
           body: JSON.stringify(data),
         });
-        set(response.json());
       } catch (error) {
         //return error
       }
     }
     postData(uri, data);
-    console.log($pubAirData)
+    
     setTimeout(testData, delay);
   }
   testData();
@@ -73,15 +71,15 @@
           reading={$temp}
           unit={$tempUnits}
           gaugeType="number"
-          description="Description"
+          description="Current temperature reading."
         ></DataCard>
         <DataCard
           position="xl:row-start-2 xl:col-start-2 row-span-1"
-          title="Air Quality"
+          title="Air Quality (PM 2.5)"
           reading={$airQuality}
-          unit="AQI"
+          unit="μg/m3"
           gaugeType="gauge"
-          description="Description"
+          description="Current particulates <2.5 microns in size."
         ></DataCard>
         <DataCard
           position="xl:row-start-3 xl:col-start-1 xl:col-span-2 row-span-1"
@@ -89,7 +87,7 @@
           reading={$light}
           unit=""
           gaugeType="gauge"
-          description="Description"
+          description="Current light level on a scale of 1 to 10."
         ></DataCard>
         <DataCard
           position="xl:row-start-4 xl:col-start-1 xl:col-span-2 row-span-1"
@@ -97,7 +95,7 @@
           reading={$humidity}
           unit="%"
           gaugeType="number"
-          description="Description"
+          description="Current relative humidity."
         ></DataCard>
         <DataCard
           position="xl:row-start-5 xl:col-start-1 xl:col-span-2 row-span-1"
@@ -105,7 +103,7 @@
           reading={$airPressure}
           unit={$airPressureUnits}
           gaugeType="context"
-          description="Description"
+          description="Current air pressure."
         ></DataCard>
       </div>
     </Card>
