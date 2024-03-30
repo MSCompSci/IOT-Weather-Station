@@ -102,7 +102,8 @@ let pubData = readable({},(set)=>{
             }
         }
         fetchData();
-        setTimeout(getData,delay)
+        // Repeat every 30 minutes
+        setTimeout(getData,1800000)
     }
     getData();
 })
@@ -148,11 +149,15 @@ let pubAirData = readable({},(set)=>{
     getData();
 })
 
-
-
-let pubAirQuality = readable(0,(set)=>{
-    set(0)
+let pubAirQuality = derived(pubAirData,($pubAirData)=>{
+    let particulates25 = $pubAirData[0]
+    let AQI = -1
+    if(particulates25){
+        AQI = particulates25["value"]
+    }
+    return AQI
 })
+
 
 let pubAirPressure = derived(pubData,($pubData)=>{
     let data = $pubData["barometricPressure"]
@@ -171,7 +176,7 @@ let tempDiff = derived([temp,pubTemp],([$temp,$pubTemp])=>{
 })
 let airQualityDiff = derived([airQuality,pubAirQuality],([$airQuality,$pubAirQuality])=>{
     let airDiff = $airQuality-$pubAirQuality
-    return airDiff.toFixed(0)
+    return airDiff.toFixed(1)
 })
 let airPressureDiff = derived([airPressure,pubAirPressure],([$airPressure,$pubAirPressure])=>{
     let airDiff = (parseFloat($airPressure)-parseFloat($pubAirPressure));

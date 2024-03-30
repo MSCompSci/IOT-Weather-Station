@@ -22,8 +22,8 @@
         class="relative grid grid-cols-1 grid-rows-1 justify-center items-center content-center text-center"
       >
         <div class="relative col-start-1 row-start-1 col-span-1 row-span-1 w-full h-full flex items-center justify-center">
-          {#if unit === "AQI" && typeof(reading)==="number"}
-            <Gauge value={reading} max={100} min={0}></Gauge>
+          {#if unit === "μg/m3" && typeof(reading)==="number"}
+            <Gauge value={reading} max={600} min={0}></Gauge>
           {:else if typeof(reading)==="number"}
             <Gauge value={reading} max={10} min={0}></Gauge>
           {/if}

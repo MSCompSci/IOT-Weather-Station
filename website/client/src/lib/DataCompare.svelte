@@ -41,16 +41,16 @@
       <h4 class="text-xl mt-4">Results</h4>
       <hr class="w-1/3 mx-auto" />
       {#if dataType === "Temperature"}
-        {#if $tempDiff > 0}
+        {#if parseFloat($tempDiff) > 0}
           <p class="text-5xl mt-2">+{$tempDiff}{$tempUnits}</p>
           <p class="text-sm mx-2">
             Weathernaut readings are {$tempDiff}{$tempUnits} higher than publicly
             available data
           </p>
-        {:else if $tempDiff < 0}
+        {:else if parseFloat($tempDiff) < 0}
           <p class="text-5xl mt-2">{$tempDiff}{$tempUnits}</p>
           <p class="text-sm mx-2">
-            Weathernaut readings are {Math.abs($tempDiff)}{$tempUnits} lower than
+            Weathernaut readings are {Math.abs(parseFloat($tempDiff))}{$tempUnits} lower than
             publicly available data
           </p>
         {:else}
@@ -60,35 +60,35 @@
           </p>
         {/if}
       {:else if dataType === "Air Quality"}
-        {#if $airQualityDiff > 0}
-          <p class="text-5xl mt-2">+{$airQualityDiff} AQI</p>
+        {#if parseFloat($airQualityDiff) > 0}
+          <p class="text-5xl mt-2">+{$airQualityDiff} <span class="text-base">μg/m3</span></p>
           <p class="text-sm mx-2">
-            Weathernaut readings are {$airQualityDiff} AQI higher than publicly available
+            Weathernaut readings are {$airQualityDiff} μg/m3 higher than publicly available
             data
           </p>
-        {:else if $airQualityDiff < 0}
-          <p class="text-5xl mt-2">{$airQualityDiff} AQI</p>
+        {:else if parseFloat($airQualityDiff) < 0}
+          <p class="text-5xl mt-2">{$airQualityDiff} <span class="text-base">μg/m3</span></p>
           <p class="text-sm mx-2">
-            Weathernaut readings are {Math.abs($airQualityDiff)} AQI lower than publicly
+            Weathernaut readings are {Math.abs(parseFloat($airQualityDiff))} μg/m3 lower than publicly
             available data
           </p>
         {:else}
-          <p class="text-5xl mt-2">{$airQualityDiff} AQI</p>
+          <p class="text-5xl mt-2">{$airQualityDiff} <span class="text-base">μg/m3</span></p>
           <p class="text-sm mx-2">
             Weathernaut readings are equal to publicly available data
           </p>
         {/if}
       {:else if dataType === "Humidity"}
-        {#if $humidityDiff > 0}
+        {#if parseFloat($humidityDiff) > 0}
           <p class="text-5xl mt-2">+{$humidityDiff}%</p>
           <p class="text-sm mx-2">
             Weathernaut readings are {$humidityDiff}% higher than publicly
             available data
           </p>
-        {:else if $humidityDiff < 0}
+        {:else if parseFloat($humidityDiff) < 0}
           <p class="text-5xl mt-2">{$humidityDiff}%</p>
           <p class="text-sm mx-2">
-            Weathernaut readings are {Math.abs($humidityDiff)}% lower than
+            Weathernaut readings are {Math.abs(parseFloat($humidityDiff))}% lower than
             publicly available data
           </p>
         {:else}
@@ -136,9 +136,9 @@
           Temperature reading from external API data
         </p>
       {:else if dataType === "Air Quality"}
-        <p class="text-5xl mt-2">{$pubAirQuality} AQI</p>
+        <p class="text-5xl mt-2">{$pubAirQuality} <span class="text-base">μg/m3</span></p>
         <p class="text-sm w-[80%] mx-auto">
-          Air quality reading from external API data
+          Air quality PM 2.5 reading from external API data
         </p>
       {:else if dataType === "Humidity"}
         <p class="text-5xl mt-2">{$pubHumidity}%</p>
