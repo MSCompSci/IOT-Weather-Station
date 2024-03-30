@@ -22,13 +22,13 @@
       class=" text-center min-h-36 backdrop-blur-sm bg-gradient-to-br from-blue-50/20 to-blue-200/15 border border-blue-900/35 rounded w-full h-full flex justify-center items-center mx-auto"
     >
       {#if dataType === "Temperature"}
-        <p>Temperature description</p>
+        <p>Temperature in Farenheight or Celcius</p>
       {:else if dataType === "Air Quality"}
-        <p>Air quality description</p>
+        <p>Measure of particulate matter smaller than 2.5 microns per cubic meter</p>
       {:else if dataType === "Humidity"}
-        <p>Humidity description</p>
+        <p>Relative water concentration in the air</p>
       {:else if dataType === "Air Pressure"}
-        <p>Air pressure description</p>
+        <p>Air pressure in millibars (mb) or inches of mercury (in-Hg)</p>
       {/if}
     </div>
   </div>
