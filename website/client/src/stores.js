@@ -5,10 +5,8 @@ function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-
-
 // Site settings
-let units = writable("Imperial");
+let units = writable("Metric");
 let tempUnits = derived(units,($units)=>{
     if($units==="Imperial"){
         return "°F"
@@ -29,8 +27,8 @@ let airPressureUnits = derived(units,($units)=>{
 // Readings from raspberry pi
 const uri = 'http://localhost:5000/api/weather'
 
-const piData = readable({},(set)=>{
-    let incrementCounter = setInterval(()=>{
+let piData = readable({},(set)=>{
+    function getData(){
         const fetchPiData = async ()=>{
             try{
                 const response = await fetch(uri,{
@@ -47,153 +45,141 @@ const piData = readable({},(set)=>{
             }
         }
         fetchPiData();
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
+        setTimeout(getData,delay)
+    }
+    getData();
+})
+
+let newestPiData = derived(piData,($piData)=>{
+    let data = $piData["weather_data"]
+    if(data){
+        return data["0"]
+    }
+    else {
+        return {
+            "temperature": 0,
+            "humidity": 0,
+            "aqi": 0,
+            "sunlight_level": 0,
+            "air_pressure": 900.0
+        }
     }
 })
 
-let temp = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(-100,150)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
+let temp = derived(newestPiData,($newestPiData)=>{
+    return $newestPiData["temperature"]
 })
-let airQuality = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(0,100)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
+
+let humidity = derived(newestPiData,($newestPiData)=>{
+    return $newestPiData["humidity"]
 })
-let light = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(0,10)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
+
+let airQuality = derived(newestPiData,($newestPiData)=>{
+    return $newestPiData["aqi"]
 })
-let humidity = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(0,100)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
+
+let light = derived(newestPiData,($newestPiData)=>{
+    return $newestPiData["sunlight_level"]
 })
-let airPressure = readable("25.90",(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = Math.floor(Math.random() * (32.01 - 25.90 + 1.00) + 25.9).toFixed(2)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
+
+let airPressure = derived(newestPiData,($newestPiData)=>{
+    return $newestPiData["air_pressure"]
 })
+
 // Public readings
-let pubTemp = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(-100,150)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
+const api = 'https://api.weather.gov/stations/KFZY/observations/latest' // NWS Oswego Station
+const aqiAPI = 'https://api.openaq.org/v1/latest/384?limit=1&page=1&offset=0&sort=asc' // OpenAQ NYC
+let pubData = readable({},(set)=>{
+    function getData(){
+        const fetchData = async ()=>{
+            try{
+                const response = await fetch(api);
+                const result = await response.json();
+                set(result["properties"])
+            }
+            catch(error){
+
+            }
+        }
+        fetchData();
+        setTimeout(getData,delay)
+    }
+    getData();
+})
+
+let pubTemp = derived(pubData,($pubData)=>{
+    let data = $pubData["temperature"]
+    if(data){
+        return data["value"].toFixed(0)
+    }
+    else {
+        return 0
     }
 })
+
+let pubHumidity = derived(pubData,($pubData)=>{
+    let data = $pubData["relativeHumidity"]
+    if(data){
+        return data["value"].toFixed(0)
+    }
+    else {
+        return 0
+    }
+})
+
+let pubAirData = readable({},(set)=>{
+    function getData(){
+        const fetchData = async ()=>{
+            try{
+                const response = await fetch(aqiAPI,{
+                    method: 'GET', 
+                    headers: {accept: 'application/json'}
+                });
+                const result = await response.json();
+                if(result) set(result["results"][0]["measurements"])
+            }
+            catch(error){
+
+            }
+        }
+        fetchData();
+        setTimeout(getData,delay)
+    }
+    getData();
+})
+
+
+
 let pubAirQuality = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(0,100)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
+    set(0)
+})
+
+let pubAirPressure = derived(pubData,($pubData)=>{
+    let data = $pubData["barometricPressure"]
+    if(data){
+        return (data["value"]/100).toFixed(2)
+    }
+    else {
+        return 0
     }
 })
-let pubLight = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(0,10)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
-})
-let pubHumidity = readable(0,(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = randomIntFromInterval(0,100)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
-})
-let pubAirPressure = readable("25.90",(set)=>{
-    let incrementCounter = setInterval(()=>{
-        let newVal = Math.floor(Math.random() * (32.01 - 25.90 + 1.00) + 25.9).toFixed(2)
-        set (newVal);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
-})
+
 // Comparisons
 let tempDiff = derived([temp,pubTemp],([$temp,$pubTemp])=>{
     let tempDiff = $temp-$pubTemp
-    return tempDiff
+    return tempDiff.toFixed(0)
 })
 let airQualityDiff = derived([airQuality,pubAirQuality],([$airQuality,$pubAirQuality])=>{
     let airDiff = $airQuality-$pubAirQuality
-    return airDiff
+    return airDiff.toFixed(0)
 })
 let airPressureDiff = derived([airPressure,pubAirPressure],([$airPressure,$pubAirPressure])=>{
-    let airDiff = (parseFloat($airPressure)-parseFloat($pubAirPressure)).toFixed(2);
-    return airDiff
+    let airDiff = (parseFloat($airPressure)-parseFloat($pubAirPressure));
+    return airDiff.toFixed(2)
 })
 let humidityDiff = derived([humidity,pubHumidity],([$humidity,$pubHumidity])=>{
     let humidityDiff = $humidity-$pubHumidity
-    return humidityDiff
+    return humidityDiff.toFixed(0)
 })
 
-// Test Data
-
-let testData = {
-    "temperature": 35.5,
-    "humidity": 41.2,
-    "aqi": 45,
-    "sunlight_level": 80,
-    "air_pressure": 1015.5
-}
-
-const piPost = readable({},(set)=>{
-    let incrementCounter = setInterval(()=>{
-        async function postPiData(testData) {
-            try {
-                const response = await fetch(uri,{
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(testData),
-                    mode: "cors",
-                });
-                const result =  await response.json();
-            } catch (error){
-        
-            }
-        }
-        postPiData(testData);
-    }, delay)
-    return ()=>{
-        clearInterval(incrementCounter)
-    }
-})
-
-export {piData, piPost, units, tempUnits, airPressureUnits, temp, airQuality, light, humidity, airPressure, pubTemp, pubLight, pubHumidity, pubAirQuality, pubAirPressure, tempDiff, airQualityDiff, airPressureDiff, humidityDiff}
+export {newestPiData, pubData, pubAirData, piData, units, tempUnits, airPressureUnits, temp, airQuality, light, humidity, airPressure, pubTemp, pubHumidity, pubAirQuality, pubAirPressure, tempDiff, airQualityDiff, airPressureDiff, humidityDiff}
