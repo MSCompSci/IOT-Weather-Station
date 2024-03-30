@@ -66,8 +66,12 @@ let newestPiData = derived(piData,($piData)=>{
     }
 })
 
-let temp = derived(newestPiData,($newestPiData)=>{
-    return $newestPiData["temperature"]
+let temp = derived([newestPiData,units],([$newestPiData,$units])=>{
+    // Assume celcius as default
+    if($units==="Imperial"){
+        return (($newestPiData["temperature"]*9/5)+32).toFixed(0)
+    }
+    return $newestPiData["temperature"].toFixed(0)
 })
 
 let humidity = derived(newestPiData,($newestPiData)=>{
@@ -82,7 +86,10 @@ let light = derived(newestPiData,($newestPiData)=>{
     return $newestPiData["sunlight_level"]
 })
 
-let airPressure = derived(newestPiData,($newestPiData)=>{
+let airPressure = derived([newestPiData,units],([$newestPiData,$units])=>{
+    if($units==="Imperial"){
+        return ($newestPiData["air_pressure"]*0.02953).toFixed(2)
+    }
     return $newestPiData["air_pressure"]
 })
 
@@ -108,9 +115,12 @@ let pubData = readable({},(set)=>{
     getData();
 })
 
-let pubTemp = derived(pubData,($pubData)=>{
+let pubTemp = derived([pubData,units],([$pubData,$units])=>{
     let data = $pubData["temperature"]
     if(data){
+        if($units==="Imperial"){
+            return ((data["value"]*9/5)+32).toFixed(0)
+        }
         return data["value"].toFixed(0)
     }
     else {
@@ -159,9 +169,12 @@ let pubAirQuality = derived(pubAirData,($pubAirData)=>{
 })
 
 
-let pubAirPressure = derived(pubData,($pubData)=>{
+let pubAirPressure = derived([pubData,units],([$pubData,$units])=>{
     let data = $pubData["barometricPressure"]
     if(data){
+        if($units==="Imperial"){
+            return ((data["value"]/100)*0.02953).toFixed(2)
+        }
         return (data["value"]/100).toFixed(2)
     }
     else {
