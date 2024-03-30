@@ -14,6 +14,7 @@
     airPressure,
     tempUnits,
     airPressureUnits,
+    condition
   } from "./stores";
   function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -64,7 +65,7 @@
         slot="content"
         class="mt-4 grid gap-y-3 gap-x-8 grid-cols-[1fr_2fr] grid-rows-5"
       >
-        <CurrentCondition condition="Sunny" position="row-span-2" />
+        <CurrentCondition condition={$condition} position="row-span-2" />
         <DataCard
           position="xl:row-start-1 xl:col-start-2 row-span-1"
           title="Temperature"

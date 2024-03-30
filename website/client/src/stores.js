@@ -115,6 +115,16 @@ let pubData = readable({},(set)=>{
     getData();
 })
 
+let condition = derived(pubData, ($pubData)=>{
+    let data = $pubData["textDescription"]
+    if(data){
+        return data
+    }
+    else {
+        return ""
+    }
+})
+
 let pubTemp = derived([pubData,units],([$pubData,$units])=>{
     let data = $pubData["temperature"]
     if(data){
@@ -200,4 +210,4 @@ let humidityDiff = derived([humidity,pubHumidity],([$humidity,$pubHumidity])=>{
     return humidityDiff.toFixed(0)
 })
 
-export {newestPiData, pubData, pubAirData, piData, units, tempUnits, airPressureUnits, temp, airQuality, light, humidity, airPressure, pubTemp, pubHumidity, pubAirQuality, pubAirPressure, tempDiff, airQualityDiff, airPressureDiff, humidityDiff}
+export {newestPiData, pubData, pubAirData, piData, units, tempUnits, airPressureUnits, temp, airQuality, light, humidity, airPressure, pubTemp, pubHumidity, pubAirQuality, pubAirPressure, tempDiff, airQualityDiff, airPressureDiff, humidityDiff, condition}
