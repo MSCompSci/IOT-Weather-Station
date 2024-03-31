@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import ApexCharts from "apexcharts";
-  import {piData} from '../stores'
+  import {piData, units} from '../stores'
 
   export let selectedData: string; // Data selected by toggle
   export let dataSource = "past"  // Past data or forecast
@@ -108,7 +108,11 @@
       switch(dataName){
         case "Temperature":
           piDataObj.forEach((dp)=>{
-            data.push({x:Date.parse(dp['timestamp'])+timezoneOffset,y:dp['temperature']})
+            let temp = dp['temperature']
+            if($units==="Imperial"){
+              temp = temp*9/5+32
+            }
+            data.push({x:Date.parse(dp['timestamp'])+timezoneOffset,y:temp})
           })
         break;
         case "Humidity":
@@ -123,7 +127,11 @@
         break;
         case "Air Pressure":
           piDataObj.forEach((dp)=>{
-            data.push({x:Date.parse(dp['timestamp'])+timezoneOffset,y:dp['air_pressure']})
+            let ap = dp['air_pressure']
+            if($units==="Imperial"){
+              ap = parseFloat((ap*0.02953).toFixed(2))
+            }
+            data.push({x:Date.parse(dp['timestamp'])+timezoneOffset,y:ap})
           })
         break;
         case "Light Level":
@@ -142,5 +150,6 @@
   });
   $: selectedData, updateGraph(selectedData); // Update chart when toggle changes
   $: $piData, updateGraph(selectedData); // Update chart with new data
+  $: $units, updateGraph(selectedData); // Update chart on unit change
 </script>
 <div id="chart"></div>
