@@ -37,7 +37,7 @@ const config = {
 
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
-      '3xl': '1872px',
+      '3xl': '1656px',
     },
     fontFamily: {
       'tomorrow': ['Tomorrow'],
