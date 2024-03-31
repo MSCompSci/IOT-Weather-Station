@@ -4,7 +4,7 @@
     export let data: "Temperature" | "Air Quality" | "Humidity" | "Air Pressure" = "Temperature";
   </script>
   
-  <Button size="lg" class="font-coda bg-gradient-to-b from-blue-700/80 to-blue-900/80 backdrop-blur-sm" color="none"
+  <Button size="lg" class="mx-6 sm:mx-2 font-coda bg-gradient-to-b from-blue-700/80 to-blue-900/80 backdrop-blur-sm" color="none"
     ><span class="min-w-20">{data}</span><ChevronDownSolid
       class=" h-3 ms-2 text-white dark:text-white w-3"
     /></Button

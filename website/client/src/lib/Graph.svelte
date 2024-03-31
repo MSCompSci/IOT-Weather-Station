@@ -284,7 +284,7 @@
         }, 
         ],
           chart: {
-          height: 250,
+          height: 300,
           type: 'area',
           background: "#00000000",
           zoom:{
@@ -335,4 +335,4 @@
         };
   </script>
   
-<Chart class="" {options} />
+<Chart {options} />

@@ -33,7 +33,7 @@
       </div>
       <span class="sr-only">Toggle {label}</span>
     </div>
-    <p>{label}</p>
+    <p class="text-xs 2xl:text-sm">{label}</p>
   </label>
   
   

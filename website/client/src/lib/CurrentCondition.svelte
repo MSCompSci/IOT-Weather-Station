@@ -3,7 +3,7 @@
     export let condition:string;
     export let position:string;
 </script>
-<div class={position+" rounded-lg aspect-square backdrop-blur-sm bg-gradient-to-br from-blue-500/50 to-blue-800/50 border border-blue-900/25 text-slate-50 font-coda flex flex-col gap-2 items-center justify-center"}>
+<div class={position+" w-[280px] h-[280px] aspect-square rounded-lg backdrop-blur-sm bg-gradient-to-br from-blue-500/50 to-blue-800/50 border border-blue-900/25 text-slate-50 font-coda flex flex-col gap-2 2xl:gap-6 2xl:pt-6 items-center justify-center"}>
     <h3 class="sr-only">Current Condition</h3>
 
     <!-- Sun -->
@@ -15,7 +15,7 @@
     <i class="fa-solid fa-cloud-sun fa-6x"></i>
 
     <!-- Cloud -->
-    {:else if ["Overcast","Overcast with Haze","Overcast and Breezy"].includes(condition)}
+    {:else if ["Overcast","Overcast with Haze","Overcast and Breezy", "Cloudy"].includes(condition)}
     <i class="fa-solid fa-cloud fa-6x"></i>
 
     <!-- Smog -->
@@ -55,5 +55,5 @@
     <i class="fa-solid fa-tornado fa-6x"></i>
 
     {/if}
-    <p class="text-2xl">{condition}</p>
+    <p class="text-2xl 2xl:text-3xl">{condition}</p>
 </div>

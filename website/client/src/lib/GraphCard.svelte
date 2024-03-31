@@ -6,8 +6,8 @@
 </script>
 <section class={position+" backdrop-blur-sm bg-gradient-to-br from-blue-300/30 to-blue-600/30 border border-blue-900/25 text-slate-50 font-coda p-8 rounded-lg "}>
 
-    <Tabs style="pill" contentClass="'p-0 bg-gradient-to-br from-blue-300/30 to-blue-600/30 rounded-lg mt-4" class="flex flex-row items-center  justify-between text-sm font-medium text-center disabled:cursor-not-allowed">
-        <div class="flex flex-row gap-2 bg-gradient-to-br from-blue-300/30 to-blue-600/30 p-2 backdrop-blur-sm rounded-lg">
+    <Tabs style="pill" contentClass="p-0 bg-gradient-to-br from-blue-300/30 to-blue-600/30 rounded-lg mt-4" class="flex flex-row items-center justify-between text-sm font-medium text-center disabled:cursor-not-allowed">
+        <div class="flex mx-auto sm:mx-0 flex-row gap-2 bg-gradient-to-br from-blue-300/30 to-blue-600/30 p-2 backdrop-blur-sm rounded-lg">
             <TabItem 
             disabled
             defaultClass="inline-block  font-medium text-center disabled:cursor-not-allowed"
@@ -26,12 +26,22 @@
                 <Graph/>
             </TabItem>
         </div>
-        <menu class="flex flex-row gap-2 justify-end ">
-            <Toggle color="bg-red-500" label="Temperature"></Toggle>
-            <Toggle color="bg-blue-500" label="Humidity"></Toggle>
-            <Toggle color="bg-purple-500" label="Air Quality"></Toggle>
-            <Toggle color="bg-green-500" label="Air Pressure"></Toggle>
-            <Toggle color="bg-amber-500" label="Light Level"></Toggle>
+        <menu class="flex flex-row flex-wrap w-full sm:w-fit gap-2 justify-center items-center mt-4">
+            <li>
+                <Toggle color="bg-red-500" label="Temperature"></Toggle>
+            </li>
+            <li>
+                <Toggle color="bg-blue-500" label="Humidity"></Toggle>
+            </li>
+            <li>
+                <Toggle color="bg-purple-500" label="Air Quality"></Toggle>
+            </li>
+            <li>
+                <Toggle color="bg-green-500" label="Air Pressure"></Toggle>
+            </li>
+            <li>
+                <Toggle color="bg-amber-500" label="Light Level"></Toggle>
+            </li>
         </menu>
     </Tabs>
 </section>

@@ -25,7 +25,7 @@
     let data = {
       temperature: randomIntFromInterval(-100, 150),
       humidity: randomIntFromInterval(0, 100),
-      aqi: 0,
+      aqi: randomIntFromInterval(0, 600),
       sunlight_level: randomIntFromInterval(0, 10),
       air_pressure: randomIntFromInterval(900, 1100),
     };
@@ -44,30 +44,31 @@
       }
     }
     postData(uri, data);
-    
     setTimeout(testData, delay);
   }
   testData();
 </script>
 
 <article
-  class="bg-[url('../static/background.jpg')] bg-cover bg-fixed bg-center w-full min-h-screen"
+  class="bg-[url('../static/background.jpg')] bg-cover bg-fixed bg-center w-full min-h-screen pb-3"
 >
   <Header location={{ city: "Oswego", state: "NY" }} />
   <main
-    class="max-w-[1472px] mt-20 gap-8 mx-8 2xl:mx-auto grid grid-cols-1 xl:grid-cols-2 grid-rows-1"
+    class="mx-6 pt-44 flex flex-col 2xl:grid 2xl:grid-cols-2 2xl:gap-0 2xl:max-w-[1592px] 3xl:mx-auto gap-4 md:gap-6 lg:gap-8"
   >
     <Card
-      position="row-start-1 col-start-1 col-span-1 row-span-1"
+      position="md:w-fit md:mx-auto"
       title="Current Conditions"
     >
       <div
         slot="content"
-        class="mt-4 grid gap-y-3 gap-x-8 grid-cols-[1fr_2fr] grid-rows-5"
+        class="flex flex-col gap-2 sm:gap-4 m-6 max-w-[280px] mx-auto sm:mx-2 md:mx-8 sm:max-w-[927px] "
       >
-        <CurrentCondition condition={$condition} position="row-span-2" />
-        <DataCard
-          position="xl:row-start-1 xl:col-start-2 row-span-1"
+      <div class="flex flex-col items-center gap-2 md:gap-8 sm:flex-row justify-center">
+        <CurrentCondition condition={$condition} position="col-start-1 col-span-2 row-start-1 row-span-2 " />
+        <div class=" border border-transparent grid gap-2 sm:gap-8 sm:col-span-2 row-start-1 row-span-2">
+          <DataCard
+          position=""
           title="Temperature"
           reading={$temp}
           unit={$tempUnits}
@@ -75,15 +76,18 @@
           description="Current temperature reading."
         ></DataCard>
         <DataCard
-          position="xl:row-start-2 xl:col-start-2 row-span-1"
-          title="Air Quality (PM 2.5)"
+          position=""
+          title="Air Quality"
           reading={$airQuality}
           unit="μg/m3"
           gaugeType="gauge"
           description="Current particulates <2.5 microns in size."
         ></DataCard>
+        </div>
+      </div>
+        
         <DataCard
-          position="xl:row-start-3 xl:col-start-1 xl:col-span-2 row-span-1"
+          position=""
           title="Light Level"
           reading={$light}
           unit=""
@@ -91,7 +95,7 @@
           description="Current light level on a scale of 1 to 10."
         ></DataCard>
         <DataCard
-          position="xl:row-start-4 xl:col-start-1 xl:col-span-2 row-span-1"
+          position=""
           title="Humidity"
           reading={$humidity}
           unit="%"
@@ -99,7 +103,7 @@
           description="Current relative humidity."
         ></DataCard>
         <DataCard
-          position="xl:row-start-5 xl:col-start-1 xl:col-span-2 row-span-1"
+          position=""
           title="Air Pressure"
           reading={$airPressure}
           unit={$airPressureUnits}
@@ -108,8 +112,8 @@
         ></DataCard>
       </div>
     </Card>
-    <div class="row-span-1 h-full grid grid-rows-[75fr_100fr] gap-y-8">
-      <Card position="col-start-2 col-span-1" title="Compare Data">
+    <div class="flex flex-col gap-4 md:gap-6 lg:gap-8 relative md:mx-auto md:max-w-[792px] 2xl:grid">
+      <Card position="relative z-10 col-start-2 col-span-1" title="Compare Data">
         <DataCompare slot="content" />
       </Card>
       <GraphCard position=" col-start-2 col-span-1" />
