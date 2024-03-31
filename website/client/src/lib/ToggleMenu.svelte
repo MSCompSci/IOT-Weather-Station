@@ -1,6 +1,6 @@
 <script lang="ts">
   import Toggle from "./Toggle.svelte";
-  let toggleSelected = "Temperature";
+  export let toggleSelected = "Temperature";
   type ToggleCon = { label: string; color: string };
   let toggles: ToggleCon[] = [
     {
@@ -24,7 +24,6 @@
       color: "bg-amber-500",
     },
   ];
-  //toggleSelected.includes(toggleCon.label)
 </script>
 
 <menu

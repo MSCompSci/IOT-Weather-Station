@@ -3,6 +3,7 @@
     import ToggleMenu from './ToggleMenu.svelte';
     import { Tabs, TabItem } from 'flowbite-svelte';
     import Graph from "./Graph.svelte";
+    let selectedData:string = "Temperature";
 </script>
 <section class={position+" backdrop-blur-sm bg-gradient-to-br from-blue-300/30 to-blue-600/30 border border-blue-900/25 text-slate-50 font-coda p-8 rounded-lg "}>
 
@@ -23,9 +24,9 @@
             inactiveClasses="px-4 py-2 rounded-lg hover:text-gray-600 hover:bg-gray-50 bg-gradient-to-br from-blue-50/30 to-blue-200/30 "
             activeClasses="px-4 py-2 rounded-lg hover:bg-gray-50 bg-gradient-to-br hover:from-blue-500/60 hover:to-blue-700/60 from-blue-700/60 to-blue-900/60 border-blue-900/25">
                 <span slot="title" class="text-xl">Past Data</span>
-                <Graph/>
+                <Graph selectedData={selectedData}/>
             </TabItem>
         </div>
-        <ToggleMenu/>
+        <ToggleMenu bind:toggleSelected={selectedData}/>
     </Tabs>
 </section>
