@@ -1,6 +1,6 @@
 <script lang="ts">
     export let position:string;
-    import Toggle from "./Toggle.svelte";
+    import ToggleMenu from './ToggleMenu.svelte';
     import { Tabs, TabItem } from 'flowbite-svelte';
     import Graph from "./Graph.svelte";
 </script>
@@ -26,22 +26,6 @@
                 <Graph/>
             </TabItem>
         </div>
-        <menu class="flex flex-row flex-wrap w-full sm:w-fit gap-2 justify-center items-center mt-4">
-            <li>
-                <Toggle color="bg-red-500" label="Temperature"></Toggle>
-            </li>
-            <li>
-                <Toggle color="bg-blue-500" label="Humidity"></Toggle>
-            </li>
-            <li>
-                <Toggle color="bg-purple-500" label="Air Quality"></Toggle>
-            </li>
-            <li>
-                <Toggle color="bg-green-500" label="Air Pressure"></Toggle>
-            </li>
-            <li>
-                <Toggle color="bg-amber-500" label="Light Level"></Toggle>
-            </li>
-        </menu>
+        <ToggleMenu/>
     </Tabs>
 </section>
