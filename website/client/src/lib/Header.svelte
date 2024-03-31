@@ -12,10 +12,10 @@
   <div class=" px-8 py-4 grid grid-cols-3  items-center w-full h-fit ">
     <span class="flex flex-row items-center gap-4 col-start-1">
       <img class="aspect-square w-14" src="../../static/IoT_Logo.png" alt="Logo" />
-      <span class="text-2xl">{location.city + ", " + location.state}</span>
+      <span class="text-xl hidden sm:block">{location.city + ", " + location.state}</span>
     </span>
-    <h1 class=" backdrop-blur-sm bg-gradient-to-b from-blue-700/80 to-blue-900/80 w-fit mx-auto py-2 px-4 rounded-lg text-3xl col-start-2 text-center">Weathernaut</h1>
-    <menu class="flex flex-row items-center justify-end gap-4 col-start-3">
+    <h1 class=" backdrop-blur-sm bg-gradient-to-b from-blue-700/80 to-blue-900/80 w-fit mx-auto py-2 px-4 rounded-lg sm:text-3xl col-start-2 text-center">Weathernaut</h1>
+    <menu class="flex flex-row items-center justify-end col-start-3">
       <li>
         <Dropdown />
       </li>
