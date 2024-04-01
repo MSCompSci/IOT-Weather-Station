@@ -11,10 +11,17 @@
 ## 🌐 Website
 
 - [Svelte](https://svelte.dev/)
-- [Flask](https://flask.palletsprojects.com/en/3.0.x/)
-- [gauge.js](https://github.com/bernii/gauge.js/)
+- [Tailwindcss](https://tailwindcss.com/)
+- [Flowbite UI Library](https://flowbite-svelte.com/)
+- [Apex Charts](https://apexcharts.com/)
+- [Gauge.js](https://github.com/bernii/gauge.js/)
 
 ## 💾 Data and APIs
+
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/)
+- [SQLite](https://www.sqlite.org/index.html)
+- [National Weather Service API](https://www.weather.gov/documentation/services-web-api)
+- [OpenAQ API](https://openaq.org/)
 
 ## 🎨 Design Tools
 
