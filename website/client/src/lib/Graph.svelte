@@ -19,6 +19,11 @@
   // Settings
   let chart: ApexCharts | null = null;
   let timezoneOffset = -4*3600*1000
+  let red = "#ef4444"
+  let blue = "#3b82f6"
+  let purple = "#a855f7"
+  let green = "#22c55e"
+  let amber = "#f59e0b"
   let options = {
     chart: {
       height: 300,
@@ -41,6 +46,10 @@
     ],
     stroke: {
       curve: "smooth",
+      colors: [red]
+    },
+    fill: {
+      colors: [red]
     },
     xaxis: {
       type: "datetime",
@@ -81,10 +90,34 @@
   // Update graph with new data
   function updateGraph(dataName: string) {
     let series:Series = [];
+    let newColor = red;
     if (dataName && chart) {
+      switch(dataName){
+        case "Temperature":
+          newColor = red;
+        break;
+        case "Humidity":
+        newColor = blue;
+        break;
+        case "Air Quality":
+        newColor = purple;
+        break;
+        case "Air Pressure":
+        newColor = green;
+        break;
+        case "Light Level":
+        newColor = amber;
+        break;
+      }
       chart.updateOptions({
         title: {
           text: dataName,
+        },
+        stroke: {
+          colors: [newColor]
+        },
+        fill: {
+          colors: [newColor]
         },
       });
       if(dataSource==="past"){
