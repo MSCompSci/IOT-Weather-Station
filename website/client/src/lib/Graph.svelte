@@ -24,6 +24,7 @@
   let purple = "#a855f7"
   let green = "#22c55e"
   let amber = "#f59e0b"
+  let dataUnit = " (°C)"
   let options = {
     chart: {
       height: 300,
@@ -69,7 +70,7 @@
       palette: "palette2",
     },
     title: {
-      text: "Temperature",
+      text: "Temperature (°C)",
       align: "left",
       margin: 10,
       offsetX: 0,
@@ -95,23 +96,38 @@
       switch(dataName){
         case "Temperature":
           newColor = red;
+          if($units==="Imperial"){
+            dataUnit = " (°F)"
+          }
+          else {
+            dataUnit = " (°C)"
+          }
         break;
         case "Humidity":
         newColor = blue;
+        dataUnit = " (%)"
         break;
         case "Air Quality":
         newColor = purple;
+        dataUnit = " (μg/m3)"
         break;
         case "Air Pressure":
         newColor = green;
+        if($units==="Imperial"){
+            dataUnit = " (in-Hg)"
+          }
+          else {
+            dataUnit = " (mb)"
+          }
         break;
         case "Light Level":
         newColor = amber;
+        dataUnit = " "
         break;
       }
       chart.updateOptions({
         title: {
-          text: dataName,
+          text: dataName + dataUnit,
         },
         stroke: {
           colors: [newColor]
@@ -143,7 +159,7 @@
           piDataObj.forEach((dp)=>{
             let temp = dp['temperature']
             if($units==="Imperial"){
-              temp = temp*9/5+32
+              temp = parseFloat((temp*9/5+32).toFixed(0))
             }
             data.push({x:Date.parse(dp['timestamp'])+timezoneOffset,y:temp})
           })
