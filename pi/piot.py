@@ -52,25 +52,24 @@ def remap_range(
     )
 
 
-if __name__ == "__main__":
-    dht11 = DHT11(DHT11_PIN)
-    dht11.measure()
+dht11 = DHT11(DHT11_PIN)
+dht11.measure()
 
-    temperature = dht11.temperature
-    humidity = dht11.humidity
+temperature = dht11.temperature
+humidity = dht11.humidity
 
-    # Value is in range 0-65535.
-    photocell = analogio.AnalogIn(PHOTOCELL_PIN)
-    sunlight_level = int(remap_range(photocell.value, 0, 65535, 1, 10))
+# Value is in range 0-65535.
+photocell = analogio.AnalogIn(PHOTOCELL_PIN)
+sunlight_level = int(remap_range(photocell.value, 0, 65535, 1, 10))
 
-    pm_two_five, _ = get_air_quality()
+pm_two_five, _ = get_air_quality()
 
-    i2c_bus = busio.I2C(LPS22_SCL, LPS22_SDA)
-    barometer = LPS22(i2c_bus)
-    air_pressure = barometer.pressure
+i2c_bus = busio.I2C(LPS22_SCL, LPS22_SDA)
+barometer = LPS22(i2c_bus)
+air_pressure = barometer.pressure
 
-    data = Weather(temperature, humidity, pm_two_five, sunlight_level, air_pressure)
+data = Weather(temperature, humidity, pm_two_five, sunlight_level, air_pressure)
 
-    data_json = json.dumps(asdict(data))
+data_json = json.dumps(asdict(data))
 
-    requests.put(WEATHER_ENDPOINT, data_json)
+requests.put(WEATHER_ENDPOINT, data_json)
