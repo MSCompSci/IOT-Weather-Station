@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-from dataclasses import dataclass, asdict
 import requests
-import json
 
 import analogio
 import board
@@ -12,22 +10,13 @@ from adafruit_lps2x import LPS22
 import serial
 
 # Where the weather data is posted.
-WEATHER_ENDPOINT = "localhost:3000/api/weather/"
+WEATHER_ENDPOINT = "http://localhost:5000/api/weather/"
 
 # Pins.
 DHT11_PIN = board.GPIO12  # Hardware PWM Pin on Pi Zero 2W
 PHOTOCELL_PIN = board.GPIO13
 LPS22_SCL = board.SCL
 LPS22_SDA = board.SDA
-
-
-@dataclass
-class Weather:
-    temperature: float
-    humidity: float
-    aqi: float
-    sunlight_level: int
-    air_pressure: float
 
 
 def get_air_quality() -> tuple[float, float]:
@@ -68,8 +57,12 @@ i2c_bus = busio.I2C(LPS22_SCL, LPS22_SDA)
 barometer = LPS22(i2c_bus)
 air_pressure = barometer.pressure
 
-data = Weather(temperature, humidity, pm_two_five, sunlight_level, air_pressure)
+weather = {
+    "temperature": temperature,
+    "humidity": humidity,
+    "aqi": pm_two_five,
+    "sunlight_level": sunlight_level,
+    "air_pressure": air_pressure,
+}
 
-data_json = json.dumps(asdict(data))
-
-requests.put(WEATHER_ENDPOINT, data_json)
+requests.put(WEATHER_ENDPOINT, json=weather)
