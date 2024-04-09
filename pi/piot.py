@@ -6,7 +6,7 @@ import analogio
 import board
 import busio
 from adafruit_dht import DHT11
-from adafruit_lps2x import LPS22
+from adafruit_bmp3xx import BMP3XX_I2C
 import serial
 
 # Where the weather data is posted.
@@ -15,8 +15,8 @@ WEATHER_ENDPOINT = "http://localhost:5000/api/weather/"
 # Pins.
 DHT11_PIN = board.GPIO12  # Hardware PWM Pin on Pi Zero 2W
 PHOTOCELL_PIN = board.GPIO13
-LPS22_SCL = board.SCL
-LPS22_SDA = board.SDA
+BMP390_SCL = board.SCL
+BMP390_SDA = board.SDA
 
 
 def get_air_quality() -> tuple[float, float]:
@@ -53,8 +53,8 @@ sunlight_level = int(remap_range(photocell.value, 0, 65535, 1, 10))
 
 pm_two_five, _ = get_air_quality()
 
-i2c_bus = busio.I2C(LPS22_SCL, LPS22_SDA)
-barometer = LPS22(i2c_bus)
+i2c_bus = busio.I2C(BMP390_SCL, BMP390_SDA)
+barometer = BMP3XX_I2C(i2c_bus)
 air_pressure = barometer.pressure
 
 weather = {

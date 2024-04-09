@@ -25,9 +25,8 @@ At this point, the only way to edit which pins are used is by manually editing `
     - Outputs PM2.5 and PM10 values.
 - Sunlight Level: Photoresistor/LDR
     - [Photocell w/ CircuitPython](https://learn.adafruit.com/photocells/circuitpython)
-- Air Pressure: LPS2X family
-    - [Adafruit_CircuitPython_LPS2X](https://github.com/adafruit/Adafruit_CircuitPython_LPS2X)
-    - [LPS2X reference](https://learn.adafruit.com/adafruit-lps25-pressure-sensor/overview)
+- Air Pressure: BMP390
+    - [Adafruit BMP3XX](https://learn.adafruit.com/adafruit-bmp388-bmp390-bmp3xx)
 
 ## References
 - [Raspberry Pi documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)

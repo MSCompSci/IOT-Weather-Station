@@ -18,6 +18,21 @@ Adafruit-PureIO = ">=1.1.7"
 pyftdi = ">=0.40.0"
 
 [[package]]
+name = "adafruit-circuitpython-bmp3xx"
+version = "1.3.19"
+description = "CircuitPython library for BMP3XX Temperature and Barometric Pressure sensor."
+optional = false
+python-versions = "*"
+files = [
+    {file = "adafruit-circuitpython-bmp3xx-1.3.19.tar.gz", hash = "sha256:1d59d13aaf7b5ed1bd11183826df5c2e600f983350738394922c16abc1ab6166"},
+    {file = "adafruit_circuitpython_bmp3xx-1.3.19-py3-none-any.whl", hash = "sha256:bfc24bf1e1ecb725640dbaa28f2fe9ebc419fad86c3e9eaf1c2c7f06a9980287"},
+]
+
+[package.dependencies]
+Adafruit-Blinka = "*"
+adafruit-circuitpython-busdevice = "*"
+
+[[package]]
 name = "adafruit-circuitpython-busdevice"
 version = "5.2.6"
 description = "CircuitPython bus device classes to manage bus sharing."
@@ -59,39 +74,6 @@ files = [
 
 [package.dependencies]
 Adafruit-Blinka = "*"
-
-[[package]]
-name = "adafruit-circuitpython-lps2x"
-version = "3.0.7"
-description = "Library for the ST LPS2x family of pressure sensors"
-optional = false
-python-versions = "*"
-files = [
-    {file = "adafruit-circuitpython-lps2x-3.0.7.tar.gz", hash = "sha256:345376e9f4f4d83e09fcc49632bcb492b815b99ec5c8b8dc3c9916e6a6b60edc"},
-    {file = "adafruit_circuitpython_lps2x-3.0.7-py3-none-any.whl", hash = "sha256:20f9be0358cba105eb8c37ec0919db700bea721541e8765a132a47e7e86356c4"},
-]
-
-[package.dependencies]
-Adafruit-Blinka = "*"
-adafruit-circuitpython-busdevice = "*"
-adafruit-circuitpython-register = "*"
-
-[[package]]
-name = "adafruit-circuitpython-register"
-version = "1.9.18"
-description = "CircuitPython data descriptor classes to represent hardware registers on I2C and SPI devices."
-optional = false
-python-versions = "*"
-files = [
-    {file = "adafruit-circuitpython-register-1.9.18.tar.gz", hash = "sha256:146fdec0ca787663962e1a894a3028056f1adbd0322a1d187bdeda739e4e228d"},
-    {file = "adafruit_circuitpython_register-1.9.18-py3-none-any.whl", hash = "sha256:fc84e55129c32e65e740c37f821efb1a6ab2b9439d2b27459c85a6017b0d9302"},
-]
-
-[package.dependencies]
-Adafruit-Blinka = "*"
-adafruit-circuitpython-busdevice = "*"
-adafruit-circuitpython-typing = ">=1.3.1,<2.dev0"
-typing-extensions = ">=4.0,<5.0"
 
 [[package]]
 name = "adafruit-circuitpython-requests"
@@ -360,4 +342,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "3e9f9cc23c70328a2d1d7d5599f21f80f04623b880259d59bc3b4cf7c04328b8"
+content-hash = "f4d319bc482b0ef7d18856c82f6f933cbd2e369e5ccf68f40e9c92cae6d985fd"
