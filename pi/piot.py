@@ -10,7 +10,7 @@ from adafruit_bmp3xx import BMP3XX_I2C
 from sds011lib import SDS011QueryReader
 
 # Where the weather data is posted.
-WEATHER_ENDPOINT = "http://localhost:5000/api/weather/"
+WEATHER_ENDPOINT = "http://localhost:5000/api/weather"
 
 # Pins.
 DHT11_PIN = board.D12  # Hardware PWM Pin on Pi Zero 2W
