@@ -33,7 +33,7 @@ pm_two_five = air_quality_query.pm25
 
 i2c_bus = busio.I2C(BMP390_SCL, BMP390_SDA)
 barometer = BMP3XX_I2C(i2c_bus)
-air_pressure = barometer.pressure
+air_pressure = barometer.pressure / 100 # Divide by 100 to convert from Pascal to Millibar.
 
 weather = {
     "temperature": temperature,
