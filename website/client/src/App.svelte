@@ -30,7 +30,7 @@
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
   function testData() {
-    const uri = `${window.location}/weather`; // Request to sveltekit server /weather endpoint
+    const uri = `${location.hostname}:5000/weather`;
     let delay = 10000;
     let data = {
       temperature: randomIntFromInterval(-100, 150),
