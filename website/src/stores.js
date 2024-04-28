@@ -25,7 +25,7 @@ let airPressureUnits = derived(units,($units)=>{
 })
 
 // Readings from raspberry pi
-const uri = 'http://localhost:5000/api/weather'
+const uri = `http://${location.hostname}:5000/api/weather`
 
 let piData = readable({},(set)=>{
     function getData(){

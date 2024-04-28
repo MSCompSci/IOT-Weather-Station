@@ -30,7 +30,7 @@
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
   function testData() {
-    const uri = `${location.hostname}:5000/weather`;
+    const uri = `${location.hostname}:5000/api/weather`;
     let delay = 10000;
     let data = {
       temperature: randomIntFromInterval(-100, 150),
