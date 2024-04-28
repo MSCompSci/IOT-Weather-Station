@@ -14,13 +14,23 @@
     airPressure,
     tempUnits,
     airPressureUnits,
-    condition
+    condition,
   } from "./stores";
-  function randomIntFromInterval(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min)
+
+  type WeatherData = {
+    temperature: number;
+    humidity: number;
+    aqi: number;
+    sunlight_level: number;
+    air_pressure: number;
+  };
+
+  function randomIntFromInterval(min: number, max: number) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
   function testData() {
-    const uri = 'http://localhost:5000/api/weather'
+    const uri = `${window.location}/weather`; // Request to sveltekit server /weather endpoint
     let delay = 10000;
     let data = {
       temperature: randomIntFromInterval(-100, 150),
@@ -29,7 +39,7 @@
       sunlight_level: randomIntFromInterval(0, 10),
       air_pressure: randomIntFromInterval(900, 1100),
     };
-    async function postData(uri, data) {
+    async function postData(uri: string, data: WeatherData) {
       try {
         const response = await fetch(uri, {
           method: "POST",
@@ -56,36 +66,40 @@
   <main
     class="mx-6 pt-44 flex flex-col 2xl:grid 2xl:grid-cols-2 2xl:gap-0 2xl:max-w-[1592px] 3xl:mx-auto gap-4 md:gap-6 lg:gap-8"
   >
-    <Card
-      position="md:w-fit md:mx-auto"
-      title="Current Conditions"
-    >
+    <Card position="md:w-fit md:mx-auto" title="Current Conditions">
       <div
         slot="content"
-        class="flex flex-col gap-2 sm:gap-4 m-6 max-w-[280px] mx-auto sm:mx-2 md:mx-8 sm:max-w-[927px] "
+        class="flex flex-col gap-2 sm:gap-4 m-6 max-w-[280px] mx-auto sm:mx-2 md:mx-8 sm:max-w-[927px]"
       >
-      <div class="flex flex-col items-center gap-2 md:gap-8 sm:flex-row justify-center">
-        <CurrentCondition condition={$condition} position="col-start-1 col-span-2 row-start-1 row-span-2 " />
-        <div class=" border border-transparent grid gap-2 sm:gap-8 sm:col-span-2 row-start-1 row-span-2">
-          <DataCard
-          position=""
-          title="Temperature"
-          reading={$temp}
-          unit={$tempUnits}
-          gaugeType="number"
-          description="Current temperature reading."
-        ></DataCard>
-        <DataCard
-          position=""
-          title="Air Quality"
-          reading={$airQuality}
-          unit="μg/m3"
-          gaugeType="gauge"
-          description="Current particulates <2.5 microns in size."
-        ></DataCard>
+        <div
+          class="flex flex-col items-center gap-2 md:gap-8 sm:flex-row justify-center"
+        >
+          <CurrentCondition
+            condition={$condition}
+            position="col-start-1 col-span-2 row-start-1 row-span-2 "
+          />
+          <div
+            class=" border border-transparent grid gap-2 sm:gap-8 sm:col-span-2 row-start-1 row-span-2"
+          >
+            <DataCard
+              position=""
+              title="Temperature"
+              reading={$temp}
+              unit={$tempUnits}
+              gaugeType="number"
+              description="Current temperature reading."
+            ></DataCard>
+            <DataCard
+              position=""
+              title="Air Quality"
+              reading={$airQuality}
+              unit="μg/m3"
+              gaugeType="gauge"
+              description="Current particulates <2.5 microns in size."
+            ></DataCard>
+          </div>
         </div>
-      </div>
-        
+
         <DataCard
           position=""
           title="Light Level"
@@ -112,8 +126,13 @@
         ></DataCard>
       </div>
     </Card>
-    <div class="flex flex-col gap-4 md:gap-6 lg:gap-8 relative md:mx-auto md:max-w-[792px] 2xl:grid">
-      <Card position="relative z-10 col-start-2 col-span-1" title="Compare Data">
+    <div
+      class="flex flex-col gap-4 md:gap-6 lg:gap-8 relative md:mx-auto md:max-w-[792px] 2xl:grid"
+    >
+      <Card
+        position="relative z-10 col-start-2 col-span-1"
+        title="Compare Data"
+      >
         <DataCompare slot="content" />
       </Card>
       <GraphCard position=" col-start-2 col-span-1" />
